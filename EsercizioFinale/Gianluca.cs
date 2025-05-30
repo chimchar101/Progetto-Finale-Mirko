@@ -2,11 +2,11 @@
 using System.Collections.Generic;
 
 //Classe Magazzino Singleton
-public class Magazzino
+public sealed class Magazzino
 {
     private static Magazzino _istanza;
 
-    private List<Prodotto> _prodotti = new List<Prodotto>();
+    private List<IProdotto> _prodotti = new List<IProdotto>();
 
     private Magazzino() { }
 
@@ -22,34 +22,32 @@ public class Magazzino
         }
     }
 
-    public void AggiungiProdotto(Prodotto prodotto)
+    public void AggiungiProdotto(IProdotto prodotto)
     {
         _prodotti.Add(prodotto);
     }
 
-public void RimuoviProdotto(int id)
-{
-    foreach (var prodotto in _prodotti.ToList())
+    public void RimuoviProdotto(IProdotto prodotto)
     {
-        if (prodotto.Id == id)
+        _prodotti.Remove(prodotto);
+    }
+    public void CercaProdotto(string prodotto)
+    {
+        foreach (var p in _prodotti)
         {
-            _prodotti.Remove(prodotto);
+            if (p.Descrizione().ToLower() == prodotto.ToLower())
+            {
+                Console.WriteLine("Prodotto trovato: " + p.Descrizione() + " - Prezzo: " + p.Prezzo());
+            }
         }
     }
-}
-public Prodotto CercaProdotto(int id)
-{
-    foreach (var prodotto in _prodotti)
+    public void VisualizzaProdotti()
     {
-        if (prodotto.Id == id)
+        Console.WriteLine("Prodotti nel magazzino:");
+        for (int i = 0; i < _prodotti.Count; i++)
         {
-            return prodotto;
+            Console.WriteLine($"[{i + 1}] {_prodotti[i].Descrizione()} - Prezzo: {_prodotti[i].Prezzo()}");
         }
-    }
-    return null;
-}
-public List<Prodotto> VisualizzaProdotti()
-    {
-        return _prodotti;
+        Console.WriteLine("---------------------------");
     }
 }
