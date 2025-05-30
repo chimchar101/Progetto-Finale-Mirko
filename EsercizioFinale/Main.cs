@@ -60,7 +60,32 @@ public class Program
                     break;
                 case "6":
                     // Funzionalità di ordinazione prodotto
+                    magazzino.VisualizzaProdotti();
                     Console.WriteLine("Inserisci quale prodotto ordinare:");
+                    string ordine = Console.ReadLine();
+                    Console.WriteLine("Come deve essere impacchettato il prodotto?");
+                    Console.WriteLine("[1] Inscatolato\n[2] Regalo\n[0] Nessun imballaggio");
+                    string prodottoImballato = Console.ReadLine();
+                    switch (prodottoImballato)
+                    {
+                        case "1":
+                            // Inscatolato
+                            INImballaggio inscatolato = new Inscatolato(new ProdottoBase(ordine));
+                            Console.WriteLine($"Prodotto ordinato: {inscatolato.Descrizione()}");
+                            break;
+                        case "2":
+                            // Regalo
+                            INImballaggio regalo = new Regalo(new ProdottoBase(ordine));
+                            Console.WriteLine($"Prodotto ordinato: {regalo.Descrizione()}");
+                            break;
+                        case "0":
+                            // Nessun imballaggio
+                            Console.WriteLine($"Prodotto ordinato: {ordine}");
+                            break;
+                        default:
+                            Console.WriteLine("Scelta non valida, riprova.");
+                            break;
+                    }
                     break;
                 case "0":
                     // Esce dal programma

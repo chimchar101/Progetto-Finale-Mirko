@@ -41,12 +41,13 @@ public sealed class Magazzino
             }
         }
     }
-public void VisualizzaProdotti()
+    public void VisualizzaProdotti()
     {
         Console.WriteLine("Prodotti nel magazzino:");
-        foreach (var prodotto in _prodotti)
+        for (int i = 0; i < _prodotti.Count; i++)
         {
-            Console.WriteLine(prodotto.Descrizione() + " - Prezzo: " + prodotto.Prezzo());
+            Console.WriteLine($"[{i + 1}] {_prodotti[i].Descrizione()} - Prezzo: {_prodotti[i].Prezzo()}");
         }
+        Console.WriteLine("---------------------------");
     }
 }
