@@ -3,6 +3,7 @@
 public interface IProdotto
 {
     string Descrizione();
+    double Prezzo();
 }
 
 public class ProdottoIgiene : IProdotto
